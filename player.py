@@ -8,7 +8,14 @@
 # Gender
 # Status (Playing/ Not)
 
+#Gary McTest is male, age 7, both-footed and currently able to play."
+
 def player(name, age, foot, gender, player):
-    return f"Name: {name}, Age: {age}, Foot: {foot}, Gender: {gender}, Playing? {player}"
+    if player == False:
+        aval = "unable"
+    else:
+        aval = "able"
+    return f"{name} is {gender.lower()}, age {age}, {foot.lower()}-footed and currently {aval} to play."
+    
 
 # print(player("Gaz",65,"Right","Female",True))
