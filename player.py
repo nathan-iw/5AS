@@ -1,4 +1,4 @@
-### 5 A Side ###
+## 5 A Side ###
 # What attributes do we need to know about a player?
 # Create a function to return a string giving the player's info
 
@@ -9,6 +9,8 @@
 # Status (Playing/ Not)
 
 # Gary McTest is male, age 7, both-footed and currently able to play."
+
+players = []
 
 class Player:
     def __init__(self, name, age, foot, gender, player):
@@ -24,6 +26,8 @@ class Player:
         else:
             aval = "able"
         return f"{self.name} is {self.gender.lower()}, age {self.age}, {self.foot.lower()}-footed and currently {aval} to play."
+
+    
     
 
 # print(player("Gaz",65,"Right","Female",True))
