@@ -13,17 +13,17 @@ class TestMenu(unittest.TestCase):
         expected_age = 38
         expected_foot = "Righty"
         expected_gender = "male"
-        expected_player = True
+        expected_player_status = True
 
         #Act
-        actual_output = menu.add_player()
+        actual_output = menu.add_player(menu.players)
 
         #Assert
         self.assertEqual(expected_name, actual_output.name)
         self.assertEqual(expected_age, actual_output.age)
         self.assertEqual(expected_foot, actual_output.foot)
         self.assertEqual(expected_gender, actual_output.gender)
-        self.assertEqual(expected_player, actual_output.player)
+        self.assertEqual(expected_player_status, actual_output.player_status)
         
 if __name__ == "__main__":
     unittest.main()
