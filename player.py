@@ -10,18 +10,17 @@
 
 # Gary McTest is male, age 7, both-footed and currently able to play."
 
-players = []
 
 class Player:
-    def __init__(self, name, age, foot, gender, player):
+    def __init__(self, name, age, foot, gender, player_status):
         self.name = name
         self.age = age
         self.foot = foot
         self.gender = gender 
-        self.player = player 
+        self.player_status = player_status
 
     def get_player_info(self):
-        if self.player == False:
+        if self.player_status == False:
             aval = "unable"
         else:
             aval = "able"

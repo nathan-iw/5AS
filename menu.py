@@ -1,14 +1,17 @@
-from player import Player, players
+from player import Player
+import load
 
 def menu():
-    menu_choice = input (f"Options: \n[1] Would you like to add a new player \n[2] Would you like to print a list of players \nEnter here: ")
-    if menu_choice == "1":
-        add_player()
-    elif menu_choice == "2":
-        print(players)
-    else:
-        print (f"error")
-        SystemExit
+    while True:
+        menu_choice = input (f"Options: \n[1] Would you like to add a new player \n[2] Would you like to print a list of players \nEnter here: ")
+        if menu_choice == "1":
+            add_player()
+        elif menu_choice == "2":
+            print_players()
+        else:
+            load.save_player(players, "player_list.csv")
+            exit()
+    
 
 def add_player():
     player_name = input ("Whom would one like to add? ")
@@ -22,10 +25,13 @@ def add_player():
         player_status = False
     new_player = Player(player_name, int(player_age), player_foot, player_gender, player_status)
     players.append(new_player)
-    print(players)
     return new_player
+
+def print_players():
+    for player in players:
+        print(player.get_player_info())
 
 
 if __name__ == "__main__":
-    while True:
-        menu()
+    players = load.load_players("player_list.csv")
+    menu()
