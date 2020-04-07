@@ -7,7 +7,8 @@ players = []
 
 def menu():
     while True:
-        menu_choice = input (f"Options: \n[1] Would you like to add a new player \n[2] Would you like to print a list of players \n[3] Create Gang \nEnter here: ")
+        menu_choice = input(
+            f"Options: \n[1] Would you like to add a new player \n[2] Would you like to print a list of players \n[3] Create Gang \nEnter here: ")
         if menu_choice == "1":
             add_player(players)
         elif menu_choice == "2":
@@ -17,14 +18,14 @@ def menu():
         else:
             load.save_player(players, "player_list.csv")
             exit()
-    
+
 
 def add_player(players):
-    player_name = input ("Whom would one like to add? ")
-    player_age = input ("How aged is the player ")
-    player_foot = input ("Upon which foot does he ball? ")
-    player_gender = input ("Are they male, female or prefer not to say? ")
-    player_status = input ("Can the player ball? [Y/N] ")
+    player_name = input("Whom would one like to add? ")
+    player_age = input("How aged is the player ")
+    player_foot = input("Upon which foot does he ball? ")
+    player_gender = input("Are they male, female or prefer not to say? ")
+    player_status = input("Can the player ball? [Y/N] ")
     if player_status == "Y":
         player_status = True
     else:
@@ -32,6 +33,7 @@ def add_player(players):
     new_player = Player(player_name, int(player_age), player_foot, player_gender, player_status)
     players.append(new_player)
     return new_player
+
 
 def print_players():
     number = 0
@@ -47,14 +49,14 @@ def create_team():
     new_team = Team(team_name, players[team_captain_index])
     while True:
         player_index = int(input("Who would you like to join your crew? "))
-        new_team.add_player_to_team(players[player_index])
         if player_index == "":
-            break
+            menu()
+        team_full = new_team.add_player_to_team(players[player_index])
+        if team_full:
+            menu()
     print()
-
 
 
 if __name__ == "__main__":
     players = load.load_players("player_list.csv")
-
     menu()
