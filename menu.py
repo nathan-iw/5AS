@@ -1,6 +1,6 @@
 from player import Player
 import load
-from TeamClass import Team
+import persistence
 
 players = []
 
@@ -16,7 +16,7 @@ def menu():
         elif menu_choice == "3":
             create_team()
         else:
-            load.save_player(players, "player_list.csv")
+            persistence.save_players(players)
             exit()
 
 
@@ -32,6 +32,7 @@ def add_player(players):
         player_status = False
     new_player = Player(player_name, int(player_age), player_foot, player_gender, player_status)
     players.append(new_player)
+    
     return new_player
 
 
@@ -58,5 +59,9 @@ def create_team():
 
 
 if __name__ == "__main__":
-    players = load.load_players("player_list.csv")
+    players = persistence.load_players()
     menu()
+
+
+
+
