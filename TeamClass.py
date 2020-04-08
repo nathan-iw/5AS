@@ -7,10 +7,17 @@ class Team:
     def add_player_to_team(self, player):
         if len(self.team_members) < 7:
             self.team_members.append(player)
-            print(f"gangsta has been added, for real")
-            print(f"you're rollin' with these playa's {self.print_team_members()}")
+            print("gangsta has been added, for real")
+            self.whos_rollin()
+            return False
         else:
-            print(f"you're already rollin' with these playa's {self.print_team_members()}\nTeam is on and poppin'")
+            self.whos_rollin()
+            print("This team is whack! But's it's full now fam!")
+            return True
+
+    def whos_rollin(self):
+        print("you're already rollin' with these playa's:")
+        self.print_team_members()
 
     def print_team_members(self):
         for gangsta in self.team_members:

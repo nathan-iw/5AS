@@ -12,7 +12,8 @@
 
 
 class Player:
-    def __init__(self, name, age, foot, gender, player_status):
+    def __init__(self, name, age, foot, gender, player_status, id=None):
+        self.id = id
         self.name = name
         self.age = age
         self.foot = foot
@@ -24,7 +25,7 @@ class Player:
             aval = "unable"
         else:
             aval = "able"
-        return f"{self.name} is {self.gender.lower()}, age {self.age}, {self.foot.lower()}-footed and currently {aval} to play."
+        return f"{self.name}, {self.gender.lower()}, age {self.age}, {self.foot.lower()}-footed and currently {aval} to play."
 
     
     
