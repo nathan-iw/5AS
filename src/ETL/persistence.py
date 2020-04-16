@@ -31,19 +31,18 @@ def load_players(): # function to run a select query like `SELECT * FROM players
     return players
 
 
+
 # function to save the name and titles of people to data base.
 def save_to_db(customers):
     connection = get_connection()
     cursor = connection.cursor()
     for customer in customers:
         cursor.execute(
-        """INSERT INTO customer (title, first_name, last_name, ccn) 
-                VALUES (%s, %s, %s, %s)""", customer)
+        """INSERT INTO customer (title, first_name, last_name, age, ccn) 
+                VALUES (%s, %s, %s,%s, %s)""", customer)
     connection.commit()
     cursor.close()
     connection.close()
-
-
 
 def save_players(players):
     connection = get_connection()
@@ -61,11 +60,3 @@ def save_players(players):
 # function to use the above to load players from DB
 
 # Function to use the above to save players to DB  
-
-
-
-
-
-
-
-

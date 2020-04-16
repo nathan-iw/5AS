@@ -3,10 +3,9 @@ import src.load as load
 import src.ETL.persistence as persistence
 import src.ETL.transform as transform
 import src.ETL.extract as extract
-
+import time 
 
 players = []
-
 
 def menu():
     while True:
@@ -64,10 +63,13 @@ def create_team():
 if __name__ == "__main__":
     # players = persistence.load_players()
     # menu()
+    
     dirty_customers = extract.csv_load("short_customers.csv")
     clean_customers = transform.process_customers(dirty_customers)
+    start = time.time()
     persistence.save_to_db(clean_customers)
-
+    end = time.time()
+    print(f"Time to save to DB: {end - start}")
 
 
 

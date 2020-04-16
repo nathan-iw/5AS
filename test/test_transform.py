@@ -3,8 +3,6 @@ from unittest.mock import Mock, patch, call
 import src.ETL.transform as t
 import src.ETL.customer as custo
 
-
-
 class TransformTests(unittest.TestCase):
     print("Transform tests running...")
 
@@ -31,13 +29,15 @@ class TransformTests(unittest.TestCase):
     
     @patch("src.ETL.transform.name_breaker",return_value=unittest.mock)
     @patch("src.ETL.transform.card_masker",return_value=unittest.mock)
-    def test_process_customers(self, mock_card_masker, mock_name_breaker):
+    @patch("src.ETL.transform.age_gen",return_value=unittest.mock)
+    def test_process_customers(self, mock_age, mock_card_masker, mock_name_breaker):
         # arrange 
         test_list = [["name1","dob1", "ccn1"],["name2","dob2", "ccn2"]]
         mock_name_breaker.side_effect = [("title1","first1","last1"), (None,"first2","last2")]
         mock_card_masker.side_effect = ["masked_card1", "masked_card2"]
-        customer_one = ("title1","first1","last1", "masked_card1")
-        customer_two = (None,"first2","last2", "masked_card2")  
+        mock_age.side_effect = ["age1","age2"]
+        customer_one = ("title1","first1","last1", "age1", "masked_card1")
+        customer_two = (None,"first2","last2", "age2","masked_card2")  
         expected = [customer_one, customer_two]
 
         #act
@@ -47,6 +47,8 @@ class TransformTests(unittest.TestCase):
         mock_name_breaker.assert_has_calls([call("name1"), call("name2")])
         self.assertEqual(mock_card_masker.call_count, 2)
         mock_card_masker.assert_has_calls([call("ccn1"), call("ccn2")])
+        self.assertEqual(mock_age.call_count, 2)
+        mock_age.assert_has_calls([call("dob1"), call("dob2")])
         self.assertEqual(expected,actual)
 
     
@@ -72,6 +74,33 @@ class TransformTests(unittest.TestCase):
 
         #assert
         self.assertEqual(expected, actual)
+
+
+    def test_age_from_dob(self):
+        #arrange
+        cust1_dob = "1922-12-30"
+        
+        expected = 97
+        
+        #act
+        actual = t.age_gen(cust1_dob)
+        
+        #assert
+        self.assertEqual(expected, actual)
+
+    
+    def test_age_from_dob_after_bday(self):
+        #arrange
+        cust1_dob = "1987-04-11"
+        
+        expected = 33
+        
+        #act
+        actual = t.age_gen(cust1_dob)
+        
+        #assert
+        self.assertEqual(expected, actual)
+
 
 # def process_customers(data):
 #     customer_list=[]
