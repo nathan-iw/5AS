@@ -36,10 +36,9 @@ def save_to_db(customers):
     connection = get_connection()
     cursor = connection.cursor()
     for customer in customers:
-        args = (customer.title, customer.first_name, customer.last_name)
         cursor.execute(
-        """INSERT INTO customer (title, first_name, last_name) 
-                VALUES (%s, %s, %s)""", args)
+        """INSERT INTO customer (title, first_name, last_name, ccn) 
+                VALUES (%s, %s, %s, %s)""", customer)
     connection.commit()
     cursor.close()
     connection.close()

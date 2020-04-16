@@ -10,8 +10,8 @@ class TransformTests(unittest.TestCase):
 
     def test_title_breaker(self):
         # arrange
-        title_mctest = "miss. teri person"
-        expected = ("Miss", "Teri", "Person")
+        title_mctest = "miss. teri o'person-leary"
+        expected = ("Miss", "Teri", "O'Person-Leary")
         # act
         actual = t.name_breaker(title_mctest)
 
@@ -30,14 +30,14 @@ class TransformTests(unittest.TestCase):
         
     
     @patch("src.ETL.transform.name_breaker",return_value=unittest.mock)
-    @patch("src.ETL.customer.Customer",return_value=unittest.mock)
-    def test_process_customers(self, mock_customer_class, mock_name_breaker):
+    @patch("src.ETL.transform.card_masker",return_value=unittest.mock)
+    def test_process_customers(self, mock_card_masker, mock_name_breaker):
         # arrange 
-        test_list = [[],["Name"],["name1","dob1"],["name2","dob2"]]
+        test_list = [["name1","dob1", "ccn1"],["name2","dob2", "ccn2"]]
         mock_name_breaker.side_effect = [("title1","first1","last1"), (None,"first2","last2")]
-        customer_one = Mock(custo.Customer)
-        customer_two = Mock(custo.Customer)    
-        mock_customer_class.side_effect = [customer_one, customer_two]
+        mock_card_masker.side_effect = ["masked_card1", "masked_card2"]
+        customer_one = ("title1","first1","last1", "masked_card1")
+        customer_two = (None,"first2","last2", "masked_card2")  
         expected = [customer_one, customer_two]
 
         #act
@@ -45,10 +45,33 @@ class TransformTests(unittest.TestCase):
         # assert
         self.assertEqual(mock_name_breaker.call_count, 2)
         mock_name_breaker.assert_has_calls([call("name1"), call("name2")])
-        self.assertEqual(mock_customer_class.call_count, 2)
-        mock_customer_class.assert_has_calls([call("title1","first1","last1"), call(None,"first2","last2")])
+        self.assertEqual(mock_card_masker.call_count, 2)
+        mock_card_masker.assert_has_calls([call("ccn1"), call("ccn2")])
         self.assertEqual(expected,actual)
 
+    
+    def test_card_masker(self):
+        # arrange 
+        test_card = "1234567891234"
+        expected = "XXXXXXXXX1234"
+
+        # act
+        actual = t.card_masker(test_card)
+
+        #assert
+        self.assertEqual(expected, actual)
+
+    def test_short_card_masker(self):
+        # arrange 
+        test_card = "2345"
+        
+        expected = "invalid ccn"
+
+        # act
+        actual = t.card_masker(test_card)
+
+        #assert
+        self.assertEqual(expected, actual)
 
 # def process_customers(data):
 #     customer_list=[]
