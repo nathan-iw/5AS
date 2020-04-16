@@ -1,8 +1,9 @@
 ### Transform ###
 import src.ETL.customer as custo
+from src.ETL.extract import csv_load 
 
 title_list = ["miss","ms","mrs","mr","dr"]
-from extract import csv_load 
+
 imp_customers = csv_load("customer.csv")
 
 def name_breaker(name):

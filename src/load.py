@@ -1,5 +1,5 @@
 import csv
-from player import Player
+from src.player import Player
 
 def save_player(players, player_file):
     try:
