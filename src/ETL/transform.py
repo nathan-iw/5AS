@@ -18,16 +18,12 @@ def name_breaker(name):
         first_name = broken_name[0].capitalize()
     return (title,first_name,last_name)
 
-print(name_breaker("Martin lewis"))
-my_list = ["1", "2", "3"]
-my_list.append("4")
-my_tuple = (1,2,3)
-print(my_tuple[1])
-
-
+# Name,DOB,Address,email,billing address,ccn
 def process_customers(data):
     customer_list=[]
     for row in data:
+        if len(row) == 0 or row[0] == "Name":
+            continue
         arguments = name_breaker(row[0])
         new_cust = custo.Customer(arguments[0],arguments[1],arguments[2])
         customer_list.append(new_cust)

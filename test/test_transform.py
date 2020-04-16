@@ -33,7 +33,7 @@ class TransformTests(unittest.TestCase):
     @patch("src.ETL.customer.Customer",return_value=unittest.mock)
     def test_process_customers(self, mock_customer_class, mock_name_breaker):
         # arrange 
-        test_list = [["name1","dob1"],["name2","dob2"]]
+        test_list = [[],["Name"],["name1","dob1"],["name2","dob2"]]
         mock_name_breaker.side_effect = [("title1","first1","last1"), (None,"first2","last2")]
         customer_one = Mock(custo.Customer)
         customer_two = Mock(custo.Customer)    
