@@ -1,14 +1,15 @@
 import pymysql
 from src.player import Player
 from src.TeamClass import Team
+from os import environ
 
 
 def get_connection(): # function to get the connection string using: pymysql.connect(host, username, password, database) 
     db_connection = pymysql.connect(
-        supersecret.db_host, #host
-        supersecret.user_name, #username
-        supersecret.password, #password
-        supersecret.database #database
+        environ.get("DB_HOST"), #host
+        environ.get("DB_USER"), #username
+        environ.get("DB_PW"), #password
+        environ.get("DB_NAME") #database
         )
     return db_connection
 
@@ -28,6 +29,22 @@ def load_players(): # function to run a select query like `SELECT * FROM players
     cursor.close()
     connection.close()
     return players
+
+
+# function to save the name and titles of people to data base.
+def save_to_db(customers):
+    connection = get_connection()
+    cursor = connection.cursor()
+    for customer in customers:
+        args = (customer.title, customer.first_name, customer.last_name)
+        cursor.execute(
+        """INSERT INTO customer (title, first_name, last_name) 
+                VALUES (%s, %s, %s)""", args)
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+
 
 def save_players(players):
     connection = get_connection()
