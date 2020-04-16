@@ -1,7 +1,6 @@
 import pymysql
-import supersecret
-from player import Player
-from TeamClass import Team
+from src.player import Player
+from src.TeamClass import Team
 
 
 def get_connection(): # function to get the connection string using: pymysql.connect(host, username, password, database) 
@@ -40,18 +39,17 @@ def save_players(players):
     connection.commit()
     cursor.close()
     connection.close()
-    
-
-
-
-
-
-
-
-
 
 # function to run an update query like `INSERT INTO players ...`
 
 # function to use the above to load players from DB
 
-# Function to use the above to save players to DB
+# Function to use the above to save players to DB  
+
+
+
+
+
+
+
+

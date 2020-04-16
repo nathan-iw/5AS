@@ -1,6 +1,6 @@
 import unittest.mock 
-import player 
-import load 
+import src.player as player
+import src.load as load
 import os 
 
 testy = player.Player("Gary McTest", 7, "Both", "Male", False)

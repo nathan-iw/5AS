@@ -1,7 +1,7 @@
 import unittest.mock
 from unittest.mock import Mock, patch
 import menu
-from player import Player
+from src.player import Player
 
 class TestMenu(unittest.TestCase):
 

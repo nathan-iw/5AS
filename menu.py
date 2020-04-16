@@ -1,6 +1,6 @@
-from player import Player
-import load
-import persistence
+from src.player import Player
+import src.load as load
+import src.persistence as persistence
 
 players = []
 
