@@ -60,10 +60,11 @@ def create_team():
     print()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # the file you run in command line becomes main by default so this 'if' function only applies if you run `python3 menu.py` 
+# so this if block is used, otherwise you'd be importing menu as a module, therefore __name__ == menu and this 'if' block would be ignored
     # players = persistence.load_players()
     # menu()
-    
+    print("menu is main")
     dirty_customers = extract.csv_load("short_customers.csv")
     clean_customers = transform.process_customers(dirty_customers)
     start = time.time()
