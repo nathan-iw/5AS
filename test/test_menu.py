@@ -25,5 +25,5 @@ class TestMenu(unittest.TestCase):
         self.assertEqual(expected_gender, actual_output.gender)
         self.assertEqual(expected_player_status, actual_output.player_status)
         
-if __name__ == "__main__
+if __name__ == "__main__":
     unittest.main()
