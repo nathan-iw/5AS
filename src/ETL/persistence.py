@@ -2,6 +2,7 @@ import pymysql
 from src.player import Player
 from src.TeamClass import Team
 from os import environ
+from src.ETL.customer import Customer
 
 
 def get_connection(): # function to get the connection string using: pymysql.connect(host, username, password, database) 
@@ -29,6 +30,27 @@ def load_players(): # function to run a select query like `SELECT * FROM players
     cursor.close()
     connection.close()
     return players
+
+def load_customers():
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM customer")
+    customers = []
+
+    while True:
+        row = cursor.fetchone()
+        if row == None:
+            break
+        customer = Customer(row[1],row[2],row[3],row[4],row[5],row[0])
+        customers.append(customer)
+
+    cursor.close()
+    connection.close()
+    return customers
+
+            
+# title, first_name, last_name, age, ccn, id=None
+
 
 
 
