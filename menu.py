@@ -64,13 +64,16 @@ if __name__ == "__main__": # the file you run in command line becomes main by de
 # so this if block is used, otherwise you'd be importing menu as a module, therefore __name__ == menu and this 'if' block would be ignored
     # players = persistence.load_players()
     # menu()
-    print("menu is main")
-    dirty_customers = extract.csv_load("short_customers.csv")
-    clean_customers = transform.process_customers(dirty_customers)
+    # print("menu is main")
+    # dirty_customers = extract.csv_load("short_customers.csv")
+    # clean_customers = transform.process_customers(dirty_customers)
     start = time.time()
-    persistence.save_to_db(clean_customers)
+    customers = persistence.load_customers()
+    for customer in customers:
+        customer.print_summary()
+    #  persistence.save_to_db(clean_customers)
     end = time.time()
-    print(f"Time to save to DB: {end - start}")
+    print(f"Time to load from DB: {end - start}")
 
 
 
