@@ -13,4 +13,4 @@ class ComponentTest(unittest.TestCase):
 
         #assert        
         assert actual == expected, f""" actual: {actual}
-        expected: {expected}"""
+        expected: {expected}"""    #  persistence.save_to_db(clean_customers)
